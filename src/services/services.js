@@ -15,3 +15,10 @@ export const getTasks = async () => {
 
 
 }
+
+export const updateTask = async(title, description, id)=>{
+	const query = "UPDATE tasks SET title = $1, description = $2 WHERE id = $3 RETURNING *";
+	const full_query = await pool.query(query, [title, description, id]);
+	return full_query.rows;
+
+}
