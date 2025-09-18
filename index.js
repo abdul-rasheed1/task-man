@@ -1,10 +1,15 @@
 import express from 'express';
-import {createTask, getTasks, updateTask} from './src/services/services.js';
+import {createTask, getTasks, updateTask,deleteTask} from './src/services/services.js';
+//import {dirname} from 'path';
+//import {fileURLToPath} from 'url';
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
+
 
 
 app.post('/api/task',async (req,res)=>{
@@ -47,6 +52,23 @@ app.put('/api/task/:id', async (req,res) =>{
 		}
 })
 
+
+app.delete('/api/task/:id', async(req,res)=>{
+	try {
+			const {id} = req.params;
+			const result = await deleteTask(id);
+			if (result === 1){
+			res.json({message:"task deleted successfully"});
+		}
+		else{
+			res.status(404).json({error:"NOT FOUND"})
+		}
+			}
+			catch(e){
+				console.error(e);
+				res.status(500).json({error:"Internal Server Error"});
+			}
+})
 
 
 app.listen(port, ()=>{

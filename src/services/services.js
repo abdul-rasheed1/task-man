@@ -22,3 +22,9 @@ export const updateTask = async(title, description, id)=>{
 	return full_query.rows;
 
 }
+
+export const deleteTask = async(id) =>{
+	const query = 'DELETE FROM tasks WHERE id = $1';
+	const full_query = await pool.query(query, [id]);
+	return full_query.rowCount;
+}
