@@ -28,7 +28,13 @@ const runMigration = async() =>{
 
 		for (const file of filesToMigrate){				//RUN SCRIPT TO MIGRATE FILES NOT ON THE DB
 			const sql = readFileSync(`./migrations/${file}`, 'utf-8');
-			await client.sql;
+			console.log(`migrating ${file}`);
+			await client.query(sql, (err,res)=>{
+				if(!err){
+					console.log(res.command);
+				}
+
+			});
 
 			//UPDATE THE MIGRATIONS TABLE TO KEEP TRACK OF THE MIGRATIONS MADE
 			await client.query('INSERT INTO migrations (name) VALUES ($1)', [file]);
