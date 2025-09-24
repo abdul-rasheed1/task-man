@@ -43,7 +43,7 @@ app.use(express.json());
 app.use(cors());
 
 
-app.post('/signup', async(req,res)=>{
+app.post('/api/tasks/signup', async(req,res)=>{
 	try{
 		const {username,email,password} = req.body;
 	if(!username || !password || !email){
@@ -84,11 +84,11 @@ app.post('/signup', async(req,res)=>{
 });
 
 
-app.post('/login', async(req,res)=>{
+app.post('/api/tasks/login', async(req,res)=>{
 	try{
 		const {username, password} = req.body;
 		const user = await findUser(username);
-		console.log(user);
+		//console.log(user);
 		if (user.length === 0){
 			return res.status(404).json({message:"Username or email not found"});
 		}
@@ -115,7 +115,7 @@ app.post('/login', async(req,res)=>{
 
 });
 
-app.post('/logout', async(req,res)=>{
+app.post('/api/tasks/logout', async(req,res)=>{
 	return res.status(200).json({message:"logged out successfully"});
 })
 
