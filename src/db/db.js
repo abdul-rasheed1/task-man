@@ -1,6 +1,6 @@
 import {Pool} from 'pg';
 import 'dotenv/config';
-
+/*
  export const pool = new Pool({
  	user:process.env.DB_USER,
  	host:process.env.DB_HOST,
@@ -9,3 +9,11 @@ import 'dotenv/config';
  	port:5432
  }
  	);
+ 	*/
+
+export const pool = new Pool({
+    connectionString: process.env.DB_CONNECTION_STRING,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
