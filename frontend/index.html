@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE ahtml>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -191,6 +191,12 @@
                 localStorage.removeItem('jwtToken');
             }
             
+            function updateUserProfile(user) {
+                profileUsername.textContent = user.username;
+                profileEmail.textContent = user.email;
+                profileInitials.textContent = user.username.substring(0, 2).toUpperCase();
+            }
+
             loginPasswordToggle.addEventListener('click', () => {
                 const type = loginPasswordInput.type === 'password' ? 'text' : 'password';
                 loginPasswordInput.type = type;
@@ -258,7 +264,7 @@
                     if (response.status === 200) {
                         setToken(data.jwt);
                         showSection('tasks');
-                        fetchUserProfile();
+                        updateUserProfile({ username: data.username, email: data.email });
                         fetchTasks();
                     } else {
                         showMessage(loginMessage, data.message, false);
@@ -271,22 +277,12 @@
 
             logoutBtn.addEventListener('click', async () => {
                 removeToken();
+                profileUsername.textContent = '';
+                profileEmail.textContent = '';
+                profileInitials.textContent = '';
                 showSection('login');
                 taskList.innerHTML = '';
             });
-
-            async function fetchUserProfile() {
-                // This is a temporary, hard-coded profile object for demonstration purposes.
-                // Replace this with a real API call when your backend is ready.
-                const userProfile = {
-                    username: "Jane Doe",
-                    email: "jane.doe@example.com",
-                };
-                
-                profileUsername.textContent = userProfile.username;
-                profileEmail.textContent = userProfile.email;
-                profileInitials.textContent = userProfile.username.substring(0, 2).toUpperCase();
-            }
 
             async function fetchTasks() {
                 const token = getToken();
