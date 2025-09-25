@@ -234,7 +234,7 @@
                 const email = document.getElementById('signupEmail').value;
                 const password = passwordInput.value;
                 try {
-                    const response = await fetch('http://localhost:3000/api/tasks/signup', {
+                    const response = await fetch(`${API_URL}/signup`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username, email, password })
@@ -256,7 +256,7 @@
                 const username = document.getElementById('loginUsername').value;
                 const password = document.getElementById('loginPassword').value;
                 try {
-                    const response = await fetch('http://localhost:3000/api/tasks/login', {
+                    const response = await fetch(`${API_URL}/login`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username, password })
